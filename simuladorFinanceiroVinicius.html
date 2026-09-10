@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Simulador financeiro</h1>
+    <h2>Baunilha premium</h2>
+    <p>Descubra quanto dinheiro é perdido quando não atinge o valor premium</p>
+    <span>Quantidade de orquideas</span>
+     <input type="text" id="ipt_orquideas" />
+     <span>Produção total (kg)</span>
+     <input type="text" id="ipt_producao" />
+     <span>Produção premium (%)</span>
+     <input type="text" id="ipt_premium" />
+     <button onclick="calcular()">Calcular</button>
+     <div id="div_exibir"></div>
+
+<script>
+  function calcular() {  
+    let orquideas = Number(ipt_orquideas.value)
+    let producao = Number(ipt_producao.value)
+    let premium = Number(ipt_premium.value)
+    let qtdPremium = producao * premium / 100
+    let qtdNaoPremium = producao - qtdPremium
+    let valorPremium = qtdPremium * 5500
+    let valorNaoPremium = qtdNaoPremium * 2500
+    let valorAtual = valorPremium + valorNaoPremium
+    let valorTudoPremium = producao * 5500
+    let perda = valorTudoPremium - valorAtual
+    div_exibir.innerHTML = `Você esta deixando de ganhar R$${perda}`
+  }
+</script>
+    </script>
+  </body>
+</html>
