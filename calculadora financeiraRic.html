@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<p>
+  Quantidade de favas produzidas no ano em kg:
+  <input type="number" id="inp_qnt" placeholder="Ex: 500">
+</p>
+
+
+<p>
+  Qual a finalidade de venda? (gourmet, extrato ou pó):
+  <input type="text" id="inp_area" placeholder="Digite: gourmet, extrato ou pó">
+</p>
+        <button onclick="enviar()">Calcular Umidade</button>
+        <br>
+        <span id="exibir"></span>
+</body>
+</html>
+
+<script>
+
+    function enviar(){  
+        //valores iniciais
+let quantidade = Number(inp_qnt.value);
+let area = inp_area.value;
+
+if(area == "gourmet"){
+    let gourmet = (quantidade * 5.50).toFixed(2);
+    exibir.innerHTML=`o valor da venda gourmet sera de ${gourmet}`
+}
+
+if(area == "pó"){
+    let pó = quantidade * 0.70;
+    let valor = (pó*5.27).toFixed(2)
+    exibir.innerHTML=`o valor da venda do pó sera de ${valor} as gramas do pó é ${pó}g`
+
+}
+if(area == "extrato"){
+    let extrato = quantidade /100;
+    let mililitros = extrato *1000;
+    let valor = (mililitros * 0.74).toFixed(2);
+    exibir.innerHTML=`o valor da venda do extrato sera de ${valor} os ml do extrato é ${mililitros}ml`
+
+}
+    }
+</script>
