@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h1>Calculadora Financeira - Perda de Baunilhas por Conta de Luminosidade</h1>
+    <h3>Calcule o impacto financeiro das perdas por luminosidade na sua produção de baunilha.</h3>
+    <h5>A orquídea da baunilha (Vanilla planifolia) necessita obrigatoriamente de 50% a 70% de luz indireta ao longo de toda seu cultivo.</h5>
+    <span>Informe qual valor (R$) unitario das orquideas: </span>
+    <input id="input_valor_por_orquidea" placeholder="Digite aqui...">
+    <br>
+    <br>
+    <span>Informe quantas unidades de orquideas foram plantadas: </span>
+    <input id="input_unidades" placeholder="Digite aqui...">
+    <br>
+    <br>
+    <button onclick="calcular()">CALCULAR PERDAS</button>
+    <br>
+    <br>
+    <div id="exibir"></div>
+</body>
+</html>
+<script>
+    function calcular(){
+        let valor = Number(input_valor_por_orquidea.value)
+        let unidades = Number(input_unidades.value)
+        let valorTotal = valor * unidades
+        let perda1semana = (valorTotal * 0.2).toFixed(2)
+        let perda1mes = (valorTotal * 0.65).toFixed(2)
+        let perda1ano = valorTotal.toFixed(2)
+        
+
+        exibir.innerHTML = `Calculando pela <b>média de perdas</b> por luminosidade.<br>
+        <br>Se não tiver a luz adequada durante <b>uma semana</b>, você perderá de <b>10% a 30%</b> do cultivo da baunilha, ou seja, uma <b>perda média</b> de <span style="color: red;">R$${perda1semana}</span> em plantações.<br>
+        <br>Se não tiver a luz adequada durante <b>um mês</b>, você perderá de <b>50% a 80%</b> do cultivo da baunilha, ou seja, uma <b>perda média</b> de <span style="color: red;">R$${perda1mes}</span> em plantações.<br>
+        <br>Se não tiver a luz adequada durante <b>um ano</b>, você perderá de <b>100%</b> do cultivo da baunilha, ou seja, uma <b>perda</b> de <span style="color: red;">R$${perda1ano}</span> em plantações.`
+    }
+</script>
