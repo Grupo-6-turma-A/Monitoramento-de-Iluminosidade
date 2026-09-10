@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora | Luminousix</title>
+</head>
+<body>
+    <h1>Calculadora Luminou6</h1>
+    <h3>1.Planejamento do DLI</h3>
+    <label for="ipt_PPFD">PPFD de referência (μmol/m²/s ) </label> <br>
+    <input type="text" id="ipt_PPFD"> <br>
+    <label for="ipt_horas">Horas de iluminação por dia: </label> <br>
+    <input type="text" id="ipt_horas"> <br> <br>
+    <button onclick="DLI()">Calcular DLI</button>
+    <div id="div_DLI"></div>
+        <br>
+    <h3>2.Simulação de interrupção luminosa</h3>
+    <label for="ipt_interrupcao">Duração da interrupção (horas)</label> <br>
+    <input type="text" id="ipt_interrupcao"> <br> <br>
+    <button onclick="interrupcao()">Simular interrupção</button>
+    <div id="div_interrupcao"></div>
+        <br>
+    <h3>3.Simulação financeira</h3>
+    <label for="ipt_favas">Quantidade de favas produzidas no ano (kg)</label> <br>
+    <input type="text" id="ipt_favas"> <br>
+    <label for="select_especificacao">Finalidade de venda</label> <br>
+    <select id="select_especificacao">
+        <option value="Gourmet">Gourmet</option>
+        <option value="Extrato">Extrato</option>
+        <option value="Po">Pó</option>
+    </select> <br>
+    <label for="ipt_perda">Percentual hipotético de perda (%)</label> <br>
+    <input type="text" id="ipt_perda"> <br> <br>
+    <button onclick="financeiro()">Calcular venda e impacto</button>
+    <div id="div_vendaImpacto"></div>
+</body>
+</html>
+<script>
+    function DLI(){
+        let PPFD = Number(ipt_PPFD.value)
+        let horas = Number(ipt_horas.value)
+        let DLI = PPFD * horas * 3600 / 1000000 
+        div_DLI.innerHTML = `PPFD: ${PPFD.toFixed(2)} μmol/m²/s <br>
+        Fotoperíodo planejado: ${horas.toFixed(2)} h <br>
+        DLI planejado: ${DLI.toFixed(2)} mol/m²/dia`
+    }
+    function interrupcao(){
+        let PPFD = Number(ipt_PPFD.value)
+        let horas = Number(ipt_horas.value)
+        let interrupcao = Number(ipt_interrupcao.value)
+        let DLIplanejado = PPFD * horas * 3600 / 1000000 
+        let horasEfetivas = horas - interrupcao
+        let DLIefetivo = PPFD * horasEfetivas * 3600 / 1000000
+        let deficitDLI = DLIplanejado - DLIefetivo
+        let percentualTempo = interrupcao / horas * 100
+        div_interrupcao.innerHTML = `Iluminação planejada: ${horas.toFixed(2)} h <br>
+        Interrupção: ${interrupcao.toFixed(2)} h <br>
+        Iluminação efetiva: ${horasEfetivas.toFixed(2)} h <br>
+        Tempo planejado perdido: ${percentualTempo.toFixed(1)}% <br>
+        DLI planejado: ${DLIplanejado.toFixed(2)} mol/m²/dia <br>
+        DLI simulado: ${DLIefetivo.toFixed(2)} mol/m²/dia <br>
+        Déficit de DLI: ${deficitDLI.toFixed(2)} mol/m²/dia  `
+    }
+   function financeiro(){
+    let qntFavas = Number(ipt_favas.value)
+    let opcoes = select_especificacao.value
+    let perda = Number(ipt_perda.value)
+    if(opcoes == 'Gourmet'){
+        venda = 5.50
+        let quantidadeFinal = qntFavas
+        let valorPotencial = quantidadeFinal * venda
+        let impactoEconomico = valorPotencial * perda / 100
+        let valorRestante = valorPotencial - impactoEconomico
+        div_vendaImpacto.innerHTML = `
+        <h3>Venda gourmet</h3>
+        Quantidade inicial: 
+        <b>${qntFavas.toFixed(2)} kg de favas</b> <br>
+        Quantidade final simulada: 
+        <b>${quantidadeFinal.toFixed(2)} kg</b> <br>
+        Valor potencial da venda: 
+        <b>R$ ${valorPotencial.toFixed(2)}</b> <br>
+        Percentual hipotético: 
+        <b>${perda.toFixed(1)}%</b> <br>
+        Impacto econômico simulado: 
+        <b>R$ ${impactoEconomico.toFixed(2)}</b> <br>
+        Valor restante no cenário: 
+        <b>R$ ${valorRestante.toFixed(2)}</b>
+        `
+    }
+    if(opcoes == 'Po'){
+        venda = 5.27
+        let qntFavas = Number(ipt_favas.value)
+        let rendimento = 70
+        let quantidadeFinal = qntFavas * rendimento / 100
+        let valorPotencial = quantidadeFinal * venda
+        let impactoEconomico = valorPotencial * perda / 100
+        let valorRestante = valorPotencial - impactoEconomico
+        div_vendaImpacto.innerHTML = `
+        <h3>Venda em pó</h3>
+        Quantidade inicial: 
+        <b>${qntFavas.toFixed(2)} kg de favas</b> <br>
+        Quantidade final simulada: 
+        <b>${quantidadeFinal.toFixed(2)} kg</b> <br>
+        Valor potencial da venda: 
+        <b>R$ ${valorPotencial.toFixed(2)}</b> <br>
+        Percentual hipotético: 
+        <b>${perda.toFixed(1)}%</b> <br>
+        Impacto econômico simulado: 
+        <b>R$ ${impactoEconomico.toFixed(2)}</b> <br>
+        Valor restante no cenário: 
+        <b>R$ ${valorRestante.toFixed(2)}</b>
+        `
+    }
+    if(opcoes == 'Extrato'){
+        venda = 0.74
+        let qntFavas = Number(ipt_favas.value)
+        let rendimento = 10
+        let quantidadeFinal = qntFavas * rendimento
+        let valorPotencial = quantidadeFinal * venda
+        let impactoEconomico = valorPotencial * perda / 100
+        let valorRestante = valorPotencial - impactoEconomico
+        div_vendaImpacto.innerHTML = `
+        <h3>Venda em extrato</h3>
+        Quantidade inicial: 
+        <b>${qntFavas.toFixed(2)} kg de favas</b> <br>
+        Quantidade final simulada: 
+        <b>${quantidadeFinal.toFixed(2)} mL</b> <br>
+        Valor potencial da venda: 
+        <b>R$ ${valorPotencial.toFixed(2)}</b> <br>
+        Percentual hipotético: 
+        <b>${perda.toFixed(1)}%</b> <br>
+        Impacto econômico simulado: 
+        <b>R$ ${impactoEconomico.toFixed(2)}</b> <br>
+        Valor restante no cenário: 
+        <b>R$ ${valorRestante.toFixed(2)}</b>`
+    }
+
+}
+</script>
