@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira - Gasto total Luz artificial</title>
+</head>
+<body>
+    <h1>Calculadora Financeira - Gasto total Luz artificial</h1>
+    <h4>Informe a potencia da luz artificial</h4>
+    <input type="text" id="input_potencia" placeholder="potencia em Watts"><br>
+    <h4>Informe o tempo que a lampada ligada por dia</h4>
+    <input type="text" id="input_tempo" placeholder="Horas por dia"><br>
+    <h4>Informe o valor gasto por hora </h4>
+    <input type="text" id="input_gasto"placeholder="R$ por KWh"><br>
+    <button onclick="calculo_gasto()">Calcular Gastos</button>
+    <br>
+    <div id="display"></div>
+</body>
+</html>
+
+<script>
+
+function calculo_gasto() {
+    
+    let potencia = Number(input_potencia.value)
+    let tempo    = Number(input_tempo.value)
+    let gasto    = Number(input_gasto.value)
+    
+   let consumo_diarioPotencia = (potencia*tempo)/1000
+    
+   let custo_diario = (consumo_diarioPotencia * gasto)
+
+   let custo_mensal = (custo_diario * 30)
+    
+   let custo_anual = (custo_mensal * 12)
+    
+   let flora = (custo_anual * 5)
+    
+    display.innerHTML = `<br>1 Dia : R$ ${custo_diario.toFixed(2)} <br>
+                         1 Mês : R$ ${custo_mensal.toFixed(2)}<br>
+                         1 Ano : R$ ${custo_anual.toFixed(2)} <br>
+                         5 anos : R$ ${flora.toFixed(2)} <br>
+                         <b> ano maximo de flora<b> 
+                         `
+}
+
+
+
+</script>
