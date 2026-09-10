@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira - Cultivo de Baunilha</title>
+</head>
+<body>
+    <h1>Calculadora Financeira de Impacto no Cultivo</h1>
+    <h3>Simulador de Prejuízos e Retorno sobre Investimento</h3>
+    <span>Descubra quanto a má gestão de luz está custando para a sua produção de Vanilla planifolia.</span><br><br>
+    <span>Quantidade total de mudas no seu ambiente:</span>
+    <input placeholder="Ex.: 100" id="ipt_mudas"> <br><br>
+    <span>Mudas perdidas ou danificadas por luz inadequada: </span>
+    <input placeholder="Ex.: 20" id="ipt_perdas"> <br><br>
+    <span>Estimativa de preço de venda por muda/fava produzida (R$): </span>
+    <input placeholder="Ex.: 150" id="ipt_valor_fava"> <br><br>
+    <button onclick="calcular()"><b>Simular Prejuízo e Recuperação</b></button>
+    <div id="div_mensagem"></div>
+</body>
+</html>
+
+<script>
+    function calcular() {
+        let mudas = Number(ipt_mudas.value);
+        let perdas = Number(ipt_perdas.value);
+        let valorFava = Number(ipt_valor_fava.value);
+        let ptcPerdas = ((perdas / mudas) * 100).toFixed(0);
+        let faturamentoIdeal = (mudas * valorFava).toFixed(2);
+        let prejuizoTotal = (perdas * valorFava).toFixed(2);
+        let lucroRecuperado = (prejuizoTotal * 0.8).toFixed(2);
+        let faturamentoFinal = (mudas - perdas) * valorFava + lucroRecuperado;
+        let mensagem = "";
+
+        if (ptcPerdas > 30) {
+            mensagem = `<b>CENÁRIO CRÍTICO!</b><br>` + `Você está perdendo <b>${ptcPerdas}%</b> da sua safra.<br>` + `Seu prejuízo direto é de <b>R$ ${prejuizoTotal}</b> na colheita. <br>` + `Com a nossa solução estimamos recuperar até <b>R$ ${lucroRecuperado}</b> do seu faturamento, estancando essa perda urgente!`
+        } else if (ptcPerdas > 15) {
+            mensagem = `<b>CENÁRIO DE ATENÇÃO!</b><br>` +
+                       `Sua perda atual de <b>${ptcPerdas}%</b> gera um prejuízo de <b>R$ ${prejuizoTotal}</b>.<br>` +
+                       `Com o monitoramento em tempo real do fotoperíodo, você pode recuperar cerca de <b>R$ ${lucroRecuperado}</b> que seriam jogados fora.`;
+        } else {
+            mensagem = `<b>OTIMIZAÇÃO DE MARGEM!</b><br>` +
+                       `Mesmo com uma perda baixa de <b>${ptcPerdas}%</b>, você deixa de ganhar <b>R$ ${prejuizoTotal}</b>.<br>` +
+                       `Nosso sistema ajuda você a salvar até <b>R$ ${lucroRecuperado}</b> e atingir a eficiência máxima do cultivo.`;
+        }
+        div_mensagem.innerHTML = mensagem
+    }
+</script>
